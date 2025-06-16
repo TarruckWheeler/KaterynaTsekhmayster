@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Universal Cosmopolitan State Blockchain</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #16213e;
+            --accent-color: #0f4c75;
+            --highlight-color: #3282b8;
+            --text-light: #bbe1fa;
+            --text-white: #ffffff;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--highlight-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: var(--gradient-1);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%230099ff" fill-opacity="0.1" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #3282b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .hero .author {
+            font-size: 1.5rem;
+            color: var(--text-white);
+            margin-bottom: 2rem;
+        }
+
+        .hero .year {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--highlight-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(50, 130, 184, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(50, 130, 184, 0.6);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Abstract Section */
+        .abstract {
+            background: var(--secondary-color);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .abstract-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        /* Concept Cards */
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .concept-card {
+            background: var(--secondary-color);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .concept-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .concept-card h3 {
+            color: var(--highlight-color);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .concept-card p {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Interactive Blockchain Demo */
+        .blockchain-demo {
+            background: var(--secondary-color);
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+        }
+
+        .block-container {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 2rem 0;
+        }
+
+        .block {
+            min-width: 200px;
+            background: var(--accent-color);
+            padding: 1.5rem;
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .block::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: var(--highlight-color);
+        }
+
+        .block:last-child::after {
+            display: none;
+        }
+
+        .block:hover {
+            transform: scale(1.05);
+            background: var(--highlight-color);
+        }
+
+        .block h4 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .block p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Implementation Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--highlight-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 2rem;
+            width: 45%;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item:nth-child(odd) {
+            margin-left: auto;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--highlight-color);
+            border-radius: 50%;
+            top: 2rem;
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            left: -35px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            right: -35px;
+        }
+
+        .timeline-content {
+            background: var(--secondary-color);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--accent-color);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-info {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .footer-info a {
+            color: var(--highlight-color);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                margin-left: 40px;
+            }
+
+            .timeline-item::before {
+                left: -30px !important;
+            }
+
+            .block-container {
+                flex-direction: column;
+            }
+
+            .block::after {
+                content: '↓';
+                right: 50%;
+                bottom: -30px;
+                top: auto;
+                transform: translateX(50%);
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">UCSB</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#abstract">Abstract</a></li>
+                <li><a href="#concept">Concept</a></li>
+                <li><a href="#structure">Structure</a></li>
+                <li><a href="#implementation">Implementation</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>The Universal Cosmopolitan State Blockchain</h1>
+            <p class="author">by Kateryna Tsekhmayster</p>
+            <p class="year">May 2025</p>
+            <a href="#abstract" class="cta-button">Explore the Research</a>
+        </div>
+    </section>
+
+    <!-- Abstract Section -->
+    <section id="abstract" class="fade-in">
+        <h2 class="section-title">Abstract</h2>
+        <div class="abstract">
+            <div class="abstract-content">
+                <p>This project presents an innovative blockchain solution designed to aid in conflict management in the international environment. Each block contains information about specific actions by nation-states and the global response to these actions. The ledger consists of a collection of specific acts, their context, historical data, and legal documents.</p>
+                
+                <p>This software as a service aids the United Nations in analyzing adversary motives and actions to streamline the process of establishing perpetual peace. The system aims to eradicate geopolitical biases and provide transparency in country performance in keeping world peace, as discussed by Kant in his Idea of a Universal History from a Cosmopolitan Perspective.</p>
+                
+                <p>Smart contracts based on the deontological framework of the Formula of Universal Law (FUL) and the Formula of Ends-in-Themselves (FEI) evaluate decision-making of actors based on the environment to determine whether actions would be rational if they were universal laws.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Concepts Section -->
+    <section id="concept" class="fade-in">
+        <h2 class="section-title">Key Concepts</h2>
+        <div class="concepts-grid">
+            <div class="concept-card">
+                <h3>Immutable Historical Record</h3>
+                <p>Creating an unalterable ledger of international actions to prevent historical manipulation and provide transparent accountability.</p>
+            </div>
+            <div class="concept-card">
+                <h3>Smart Contracts for Peace</h3>
+                <p>Automated enforcement mechanisms based on Kantian ethics that incentivize cooperation through deliberation periods before sanctions.</p>
+            </div>
+            <div class="concept-card">
+                <h3>Multi-Source Verification</h3>
+                <p>Incorporating data from UN agencies, NGOs, regional organizations, and academic institutions to ensure unbiased recording.</p>
+            </div>
+            <div class="concept-card">
+                <h3>Deontological Framework</h3>
+                <p>Using Kant's Formula of Universal Law and Formula of Ends-in-Themselves to evaluate state actions and promote rational decision-making.</p>
+            </div>
+            <div class="concept-card">
+                <h3>Conflict Prevention</h3>
+                <p>Early warning system that identifies potential conflicts through monitoring of economic indicators and political instability.</p>
+            </div>
+            <div class="concept-card">
+                <h3>Global Transparency</h3>
+                <p>Public access to verified historical records enables researchers, journalists, and civil society to counter disinformation.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blockchain Structure Section -->
+    <section id="structure" class="fade-in">
+        <h2 class="section-title">How It Works</h2>
+        <div class="blockchain-demo">
+            <h3 style="color: var(--highlight-color); margin-bottom: 1rem;">Interactive Blockchain Structure</h3>
+            <p style="margin-bottom: 2rem;">Click on each block to understand the flow of information:</p>
+            <div class="block-container">
+                <div class="block" onclick="showBlockInfo('action')">
+                    <h4>Initial Action</h4>
+                    <p>State speech act or international agreement</p>
+                </div>
+                <div class="block" onclick="showBlockInfo('context')">
+                    <h4>Context Data</h4>
+                    <p>GDP, GNI, political stability, treaties</p>
+                </div>
+                <div class="block" onclick="showBlockInfo('response')">
+                    <h4>Global Response</h4>
+                    <p>UN resolutions, sanctions, or deliberations</p>
+                </div>
+                <div class="block" onclick="showBlockInfo('smart')">
+                    <h4>Smart Contract</h4>
+                    <p>FUL/FEI evaluation and enforcement</p>
+                </div>
+                <div class="block" onclick="showBlockInfo('resolution')">
+                    <h4>Resolution</h4>
+                    <p>Cooperative solution or sanctions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Implementation Timeline -->
+    <section id="implementation" class="fade-in">
+        <h2 class="section-title">Implementation Phases</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Phase 1: System Development (1-6 Months)</h3>
+                    <p>• Data collection from UN agencies and NGOs<br>
+                    • Rotating expert panel establishment<br>
+                    • Blockchain development with PBFT consensus<br>
+                    • Smart contract programming<br>
+                    • Prototype testing in UN environment</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Phase 2: Institutional Adoption (7-12 Months)</h3>
+                    <p>• UN bodies integration<br>
+                    • Staff training programs<br>
+                    • NGO crowdsourcing trials<br>
+                    • Dispute resolution portal launch<br>
+                    • Public awareness campaigns</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Phase 3: Global Operations (2 Years)</h3>
+                    <p>• Academic research access<br>
+                    • Journalist verification system<br>
+                    • Comprehensive conflict tracking<br>
+                    • Sustainable funding model<br>
+                    • AI integration for analysis</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <h2 style="color: var(--highlight-color); margin-bottom: 1rem;">The Universal Cosmopolitan State Blockchain</h2>
+            <p>A revolutionary approach to international conflict resolution through blockchain technology</p>
+            <div class="footer-info">
+                <p>Research by Kateryna Tsekhmayster | May 2025</p>
+                <p style="margin-top: 1rem;">Interactive website created by Tarruck Wheeler | <a href="mailto:tarruck@stanford.edu">tarruck@stanford.edu</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Block information display
+        function showBlockInfo(type) {
+            const messages = {
+                action: "Initial actions include state speech acts, trade agreements, military actions, or diplomatic communications that affect international peace.",
+                context: "Each action is recorded with comprehensive context including GDP, GNI, political stability indices, existing treaties, and regional dynamics.",
+                response: "The global community responds through UN resolutions, sanctions, diplomatic interventions, or multilateral negotiations.",
+                smart: "Smart contracts automatically evaluate actions using Kant's Formula of Universal Law and Formula of Ends-in-Themselves to determine if intervention is needed.",
+                resolution: "States have one year to cooperatively resolve issues before automatic sanctions are implemented, incentivizing peaceful solutions."
+            };
+            
+            alert(messages[type]);
+        }
+
+        // Add floating animation to hero section
+        const hero = document.querySelector('.hero-content');
+        let floatY = 0;
+        let floatDirection = 1;
+
+        function floatAnimation() {
+            floatY += 0.5 * floatDirection;
+            if (floatY > 10 || floatY < -10) {
+                floatDirection *= -1;
+            }
+            hero.style.transform = `translateY(${floatY}px)`;
+            requestAnimationFrame(floatAnimation);
+        }
+        
+        floatAnimation();
+    </script>
+</body>
+</html>
